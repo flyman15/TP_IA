@@ -5,10 +5,10 @@ then create problem instances and solve them with calls to the various search
 functions."""
 
 from __future__ import generators
-from Utile.utils_search import *
+## from Utile.utils_search import *
 import math, random, sys, time, bisect, string
 
-from Utile.utils import *
+## from Utile.utils import *
 import time
 import random
 from Problems.Problems import Problem as Problem
@@ -66,12 +66,14 @@ class NQueensProblem(Problem):
             if self.conflicted(state, state[c], c):
                 return False
         return True
-    
+
+    "Pour voir"
     def display_solution(self, s):
         if (self.N) !=8:
-            print(state)
+            print(s)
         else:
-            state = s.state
+            state = []
+            state = s 
             c=[]
             for i in range(self.N):
                 d=state[i]
