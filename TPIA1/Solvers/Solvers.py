@@ -57,7 +57,7 @@ def depth_first_graph_search(problem):
             fringe.append(e[1])
 
 
-def depth_limited_search(problem, limit=3):
+def depth_limited_search(problem, limit=8):
     fringe = []
     number = 0
     for e in problem.successor(problem.initial):
@@ -72,7 +72,7 @@ def depth_limited_search(problem, limit=3):
             if problem.goal_test(node):
                 print("Nodes explored :", number)
                 return node
-            if node[0]  != limit:
+            if node.state[0]  != limit:
                 for e in problem.successor(node):
                     fringe.append(e[1])
 
@@ -99,7 +99,7 @@ def iterative_deepening_search(problem, limit_start=1,  para=2, mode="plus"):
                 if problem.goal_test(node):
                     print("Nodes explored :", number)
                     return node
-                if node[0] < limit:
+                if node.state[0] < limit:
                     for e in problem.successor(node):
                         fringe.append(e[1])
 

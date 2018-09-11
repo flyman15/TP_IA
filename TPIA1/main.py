@@ -20,22 +20,32 @@ from Problems.Problems import Problem
 
 from Problems.Problems import Problem
 
-from Chess.ChessProblems import NQueensProblem, KnightProblem
+from Chess.ChessProblems import NQueensProblem, KnightProblem, Node, Knight
 
 from Solvers.Solvers import depth_first_graph_search, breadth_first_graph_search, depth_limited_search, iterative_deepening_search
 
-p  = KnightProblem([0,0], [7,7])
+# p  = KnightProblem([0,0], [7,7])
+#
+# # s = depth_limited_search(p)
+#
+# # s = depth_first_graph_search(p)
+#
+# # s = iterative_deepening_search(p)
+#
+# s = breadth_first_graph_search(p)
+#
+# p.display_solution(s)
+
+
+p = Knight([0,0], [7,7])
+
+# s = breadth_first_graph_search(p)
+
+# s= iterative_deepening_search(p)
 
 # s = depth_limited_search(p)
 
-# s = depth_first_graph_search(p)
-
-# s = iterative_deepening_search(p)
-
-s = breadth_first_graph_search(p)
-
 p.display_solution(s)
-
 
 
 # p = [1,2,3,4]

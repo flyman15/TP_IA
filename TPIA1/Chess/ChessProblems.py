@@ -1,4 +1,5 @@
 """Search (Chapters 3-4)
+#coding:utf-8
 
 The way to use this code is to subclass Problem to create a class of problems,
 then create problem instances and solve them with calls to the various search
@@ -18,6 +19,64 @@ import chess.svg
 from IPython.core.display import SVG
 from IPython.core.display import display
 from IPython.display import clear_output
+
+
+class Node:
+    def __init__(self):
+        self.state = []
+        self.parent = None
+
+
+class  Knight(Problem):
+    """Il s'agit d'un problème de déplacement d'un cavalier. L'échiquier
+    est initialement vide, le cavalier part d'une position initiale définie dans
+    le problème et doit arriver dans une case finale qui est également définie
+    dans le problème, en un nombre de coups minimal. """
+    def __init__(self,  start, goal, N = 8):
+        self.N = N
+        self.initial = Node()
+        self.initial.state = [0, start[0], start[1]]
+        self.goal = goal
+
+    def  legalPosition(self, posi):
+        """"To judge if the position given is a legal one"""
+        if (posi[1] > -1 and posi[1] < 8 ) and  (posi[2] > -1 and posi[2] < 8 ):
+            return True
+        else:
+            return  False
+
+    def  successor(self,  node):
+        """"For each position given, we can give 8 possible positions for the next step"""
+        foo = [[1,2], [1,-2], [-1,2], [-1,-2], [2,1], [2,-1], [-2,1], [-2,-1]]
+        NodeList = []
+        if self.legalPosition(node.state):
+            count = 0
+            for e in foo:
+                buf = Node()
+                buf.state.append( node.state[0] + 1)
+                buf.state.append(node.state[1] + e[0])
+                buf.state.append(node.state[2] + e[1])
+                if self.legalPosition(buf.state):
+                    buf.parent = node
+                    NodeList.append([count, buf])
+                    count += 1
+            return NodeList
+
+    def goal_test(self, node):
+        if node.state[1:3] == self.goal:
+            return True
+        else:
+            return False
+
+    def display_solution(self,  node):
+        lis = []
+        buf = node
+        while buf.parent is not None:
+            lis.append(buf.state)
+            buf = buf.parent
+        lis.append(buf.state)
+        lis.reverse()
+        print(lis)
 
 
 class  KnightProblem(Problem):
