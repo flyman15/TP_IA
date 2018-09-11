@@ -19,6 +19,55 @@ from IPython.core.display import SVG
 from IPython.core.display import display
 from IPython.display import clear_output
 
+
+class  KnightProblem(Problem):
+    """Il s'agit d'un problème de déplacement d'un cavalier. L'échiquier
+    est initialement vide, le cavalier part d'une position initiale définie dans
+    le problème et doit arriver dans une case finale qui est également définie
+    dans le problème, en un nombre de coups minimal. """
+    def __init__(self,  start, goal, N = 8):
+        self.N = N
+        self.initial = [0, start[0], start[1]]
+        self.goal = goal
+
+    def  legalPosition(self, posi):
+        """"To judge if the position given is a legal one"""
+        if (posi[1] > -1 and posi[1] < 8 ) and  (posi[2] > -1 and posi[2] < 8 ):
+            return True
+        else:
+            return  False
+
+    def  successor(self,  state):
+        """"For each position given, we can give 8 possible positions for the next step"""
+        foo = [[1,2], [1,-2], [-1,2], [-1,-2], [2,1], [2,-1], [-2,1], [-2,-1]]
+        posiList = []
+        if self.legalPosition(state):
+            count = 0
+            for e in foo:
+                buf = [0, 0, 0]
+                buf[2] = state[2] + e[1]
+                buf[1] = state[1] + e[0]
+                buf[0] = state[0] + 1
+                if self.legalPosition(buf):
+                    posiList.append([count, buf])
+                    count += 1
+            return posiList
+
+    def goal_test(self, state):
+        if state[1:3] == self.goal:
+            return True
+        else:
+            return False
+
+
+    def display_solution(self, path):
+        print(path)
+
+
+
+
+
+
 class NQueensProblem(Problem):
     """The problem of placing N queens on an NxN board with none attacking
     each other.  A state is represented as an N-element array, where the
@@ -26,9 +75,10 @@ class NQueensProblem(Problem):
     row r, and a value of None means that the c-th column has not been
     filled in left.  We fill in columns left to right."""
 
-    def __init__(self, N):
+    def __init__(self, N ):
         self.N = N
         self.initial = [None] * N
+
 
     def successor(self, state): 
         "In the leftmost empty column, try all non-conflicting rows."
@@ -67,12 +117,10 @@ class NQueensProblem(Problem):
                 return False
         return True
 
-    "Pour voir"
     def display_solution(self, s):
         if (self.N) !=8:
             print(s)
         else:
-            state = []
             state = s 
             c=[]
             for i in range(self.N):
