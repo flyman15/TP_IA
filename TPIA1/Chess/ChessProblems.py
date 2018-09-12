@@ -25,9 +25,11 @@ class Node:
     def __init__(self):
         self.state = []
         self.parent = None
+        self.distance = None
+        self.depth = None
 
 
-class  Knight(Problem):
+class  KnightProblem(Problem):
     """Il s'agit d'un problème de déplacement d'un cavalier. L'échiquier
     est initialement vide, le cavalier part d'une position initiale définie dans
     le problème et doit arriver dans une case finale qui est également définie
@@ -35,35 +37,38 @@ class  Knight(Problem):
     def __init__(self,  start, goal, N = 8):
         self.N = N
         self.initial = Node()
-        self.initial.state = [0, start[0], start[1]]
+        self.initial.state = start
+        self.initial.depth = 0
         self.goal = goal
 
     def  legalPosition(self, posi):
         """"To judge if the position given is a legal one"""
-        if (posi[1] > -1 and posi[1] < 8 ) and  (posi[2] > -1 and posi[2] < 8 ):
+        if (posi[0] > -1 and posi[0] < 8 ) and  (posi[1] > -1 and posi[1] < 8 ):
             return True
         else:
             return  False
 
     def  successor(self,  node):
         """"For each position given, we can give 8 possible positions for the next step"""
-        foo = [[1,2], [1,-2], [-1,2], [-1,-2], [2,1], [2,-1], [-2,1], [-2,-1]]
+        foo = [[2, 1], [1,-2], [-1,2], [-1,-2], [1, 2], [2,-1], [-2,1], [-2,-1]]
         NodeList = []
         if self.legalPosition(node.state):
             count = 0
             for e in foo:
                 buf = Node()
-                buf.state.append( node.state[0] + 1)
-                buf.state.append(node.state[1] + e[0])
-                buf.state.append(node.state[2] + e[1])
+                buf.depth = node.depth + 1
+                buf.state.append(node.state[0] + e[0])
+                buf.state.append(node.state[1] + e[1])
                 if self.legalPosition(buf.state):
                     buf.parent = node
+                    # buf.distance = (buf.state[0] - self.goal[0])*(buf.state[0] - self.goal[0]) +\
+                    #                (buf.state[1] - self.goal[1])*(buf.state[1] - self.goal[1])
                     NodeList.append([count, buf])
                     count += 1
             return NodeList
 
     def goal_test(self, node):
-        if node.state[1:3] == self.goal:
+        if node.state == self.goal:
             return True
         else:
             return False
@@ -79,50 +84,51 @@ class  Knight(Problem):
         print(lis)
 
 
-class  KnightProblem(Problem):
-    """Il s'agit d'un problème de déplacement d'un cavalier. L'échiquier
-    est initialement vide, le cavalier part d'une position initiale définie dans
-    le problème et doit arriver dans une case finale qui est également définie
-    dans le problème, en un nombre de coups minimal. """
-    def __init__(self,  start, goal, N = 8):
-        self.N = N
-        self.initial = [0, start[0], start[1]]
-        self.goal = goal
-
-    def  legalPosition(self, posi):
-        """"To judge if the position given is a legal one"""
-        if (posi[1] > -1 and posi[1] < 8 ) and  (posi[2] > -1 and posi[2] < 8 ):
-            return True
-        else:
-            return  False
-
-    def  successor(self,  state):
-        """"For each position given, we can give 8 possible positions for the next step"""
-        foo = [[1,2], [1,-2], [-1,2], [-1,-2], [2,1], [2,-1], [-2,1], [-2,-1]]
-        posiList = []
-        if self.legalPosition(state):
-            count = 0
-            for e in foo:
-                buf = [0, 0, 0]
-                buf[2] = state[2] + e[1]
-                buf[1] = state[1] + e[0]
-                buf[0] = state[0] + 1
-                if self.legalPosition(buf):
-                    posiList.append([count, buf])
-                    count += 1
-            return posiList
-
-    def goal_test(self, state):
-        if state[1:3] == self.goal:
-            return True
-        else:
-            return False
-
-
-    def display_solution(self, path):
-        print(path)
-
-
+#
+# class  KnightProblem(Problem):
+#     """Il s'agit d'un problème de déplacement d'un cavalier. L'échiquier
+#     est initialement vide, le cavalier part d'une position initiale définie dans
+#     le problème et doit arriver dans une case finale qui est également définie
+#     dans le problème, en un nombre de coups minimal. """
+#     def __init__(self,  start, goal, N = 8):
+#         self.N = N
+#         self.initial = [0, start[0], start[1]]
+#         self.goal = goal
+#
+#     def  legalPosition(self, posi):
+#         """"To judge if the position given is a legal one"""
+#         if (posi[1] > -1 and posi[1] < 8 ) and  (posi[2] > -1 and posi[2] < 8 ):
+#             return True
+#         else:
+#             return  False
+#
+#     def  successor(self,  state):
+#         """"For each position given, we can give 8 possible positions for the next step"""
+#         foo = [[1,2], [1,-2], [-1,2], [-1,-2], [2,1], [2,-1], [-2,1], [-2,-1]]
+#         posiList = []
+#         if self.legalPosition(state):
+#             count = 0
+#             for e in foo:
+#                 buf = [0, 0, 0]
+#                 buf[2] = state[2] + e[1]
+#                 buf[1] = state[1] + e[0]
+#                 buf[0] = state[0] + 1
+#                 if self.legalPosition(buf):
+#                     posiList.append([count, buf])
+#                     count += 1
+#             return posiList
+#
+#     def goal_test(self, state):
+#         if state[1:3] == self.goal:
+#             return True
+#         else:
+#             return False
+#
+#
+#     def display_solution(self, path):
+#         print(path)
+#
+#
 
 
 
