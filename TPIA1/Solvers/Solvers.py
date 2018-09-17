@@ -38,7 +38,7 @@ def breadth_first_graph_search(problem):
             dejavu.append(node.state)
             if problem.goal_test(node):
                 print("Nodes explored :", number)
-                return node
+                return [number, node]
             for e in problem.successor(node):
                 if e[1].state not in dejavu:
                     fringe.append(e[1])
@@ -60,7 +60,7 @@ def depth_first_graph_search(problem):
         dejavu.append(node.state)
         if problem.goal_test(node):
             print("Nodes explored :", number)
-            return node
+            return [number, node]
         for e in problem.successor(node):
             if e[1].state not in dejavu:
                 fringe.append(e[1])
@@ -80,7 +80,7 @@ def depth_limited_search(problem, limit=8):
             number += 1
             if problem.goal_test(node):
                 print("Nodes explored :", number)
-                return node
+                return [number, node]
             if node.depth != limit:
                 for e in problem.successor(node):
                         fringe.append(e[1])
@@ -107,7 +107,7 @@ def iterative_deepening_search(problem, limit_start=1,  para=2, mode="plus"):
                 number += 1
                 if problem.goal_test(node):
                     print("Nodes explored :", number)
-                    return node
+                    return [number, node]
                 if node.depth < limit:
                     for e in problem.successor(node):
                         fringe.append(e[1])
@@ -136,7 +136,7 @@ def best_first_graph_search(problem, f):
         dejavu.append(node.state)
         if problem.goal_test(node):
             print("Nodes explored :", number)
-            return node
+            return [number, node]
         for e in problem.successor(node):
             if e[1].state not in dejavu:
                 e[1].distance = f(e[1].state, problem.goal)
@@ -146,36 +146,41 @@ def best_first_graph_search(problem, f):
         foo.clear()
 
 
-def null_heuristic(node, goal):
+def null_heuristic(state, goal):
     """Suppose that the state now and the goal state , they compose
     together a square, with these two points separately in the
     opposite ends of the  diagonal line; in this case, we estimate
     the g(n) by evaluating the longest side of the square, with
     how many jumps of 2, can it arrive at the other end?"""
-    m = abs(node.state[0] - goal[0])
-    n = abs(node.state[1] - goal[1])
-    if m >= n:
+    m = abs(state[0] - goal[0])
+    n = abs(state[1] - goal[1])
+    if m>= n:
         p = m
     else:
         p = n
-    if p >= 2:
-        g = (p - p%2) / 2
-    else:
-        g = 2
-    return g
+    def cal(p):
+        if p >= 2:
+            g = (p - p%2) / 2
+        else:
+            g = 2
+        return  g
+    return cal(p)
 
 
-def astar_search(problem, h=None):
+def astar_search(problem, h=null_heuristic):
     fringe = []
     number = 0
     dejavu = []
+    entered = []
     foo = []
     for e in problem.successor(problem.initial):
-        e[1].distance = e[1].depth + null_heuristic(e[1], problem.goal)
+        e[1].distance = e[1].depth + h(e[1].state, problem.goal)
         foo.append(e[1])
+        entered.append(e[1].state)
     fringe.extend(foo)
     fringe.sort(key = lambda x:  x.distance, reverse=True)
     foo.clear()
+    entered.append(problem.initial.state)
     dejavu.append(problem.initial.state)
     while(1):
         if len(fringe) == 0:
@@ -185,11 +190,15 @@ def astar_search(problem, h=None):
         dejavu.append(node.state)
         if problem.goal_test(node):
             print("Nodes explored :", number)
-            return node
+            return [number, node]
         for e in problem.successor(node):
-            if e[1].state not in dejavu:
-                e[1].distance = e[1].depth + null_heuristic(e[1], problem.goal)
+            if e[1].state == problem.goal:
+                print("Nodes explored :", number)
+                return [number, e[1]]
+            if e[1].state not in dejavu and e[1].state not in entered:
+                e[1].distance = e[1].depth + h(e[1].state, problem.goal)
                 foo.append(e[1])
+                entered.append(e[1].state)
         fringe.extend(foo)
         fringe.sort(key=lambda x: x.distance, reverse=True)
         foo.clear()
