@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11ea068e-eb28-4061-86a8-ce74df104151" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Notebooks/JOIA_ChessAwale_Starter.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Notebooks/JOIA_ChessAwale_Starter.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,7 +17,7 @@
     <session id="2088970929">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="13" />
+          <entry key="project.closed" value="14" />
           <entry key="project.open.time.10" value="3" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.21" value="2" />
@@ -48,12 +47,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="py" value="6301" />
-          <entry key="txt" value="145" />
+          <entry key="txt" value="152" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="145" />
+          <entry key="PLAIN_TEXT" value="152" />
           <entry key="Python" value="6301" />
         </counts>
       </usages-collector>
@@ -244,7 +243,21 @@
       <option name="project" value="LOCAL" />
       <updated>1537306238393</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="King Maze implemented">
+      <created>1537306557695</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1537306557695</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Checked">
+      <created>1537306662496</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1537306662496</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -287,7 +300,8 @@
     <MESSAGE value="A* implemented" />
     <MESSAGE value="Plotted DFS &amp; BFS" />
     <MESSAGE value="King Maze implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="King Maze implemented" />
+    <MESSAGE value="Checked" />
+    <option name="LAST_COMMIT_MESSAGE" value="Checked" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
