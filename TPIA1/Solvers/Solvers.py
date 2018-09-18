@@ -49,20 +49,25 @@ def depth_first_graph_search(problem):
     fringe = []
     number = 0
     dejavu = []
+    entered = []
     for e in problem.successor(problem.initial):
         fringe.append(e[1])
     dejavu.append(problem.initial.state)
+    if problem.initial.anothState is not None:
+        entered.append(problem.initial.anothState)
     while(1):
         if len(fringe) == 0:
             return False
         node = fringe.pop()
         number += 1
+        if node.anothState is not None:
+            entered.append(node.anothState) 
         dejavu.append(node.state)
         if problem.goal_test(node):
             print("Nodes explored :", number)
             return [number, node]
         for e in problem.successor(node):
-            if e[1].state not in dejavu:
+            if e[1].state not in dejavu and e[1].anothState not in entered:
                 fringe.append(e[1])
 
 
@@ -120,6 +125,7 @@ def best_first_graph_search(problem, f):
     fringe = []
     number = 0
     dejavu = []
+    entered = []
     foo = []
     for e in problem.successor(problem.initial):
         e[1].distance = f(e[1].state, problem.goal)
@@ -127,18 +133,22 @@ def best_first_graph_search(problem, f):
     foo.sort(key = lambda x:  x.distance, reverse=True)
     fringe.extend(foo)
     foo.clear()
+    if problem.initial.anothState is not None:
+        entered.append(problem.initial.anothState)
     dejavu.append(problem.initial.state)
     while(1):
         if len(fringe) == 0:
             return False
         node = fringe.pop()
         number += 1
+        if node.anothState is not None:
+            entered.append(node.anothState)
         dejavu.append(node.state)
         if problem.goal_test(node):
             print("Nodes explored :", number)
             return [number, node]
         for e in problem.successor(node):
-            if e[1].state not in dejavu:
+            if e[1].state not in dejavu and e[1].anothState not in entered:
                 e[1].distance = f(e[1].state, problem.goal)
                 foo.append(e[1])
         foo.sort(key=lambda x: x.distance, reverse=True)

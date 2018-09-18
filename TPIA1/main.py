@@ -1,16 +1,26 @@
 from Problems.Problems import Problem
 
-from Chess.ChessProblems import NQueensProblem, KnightProblem
+from Chess.ChessProblems import NQueensProblem, KnightProblem, KingMaze
 
 from Solvers.Solvers import depth_first_graph_search, breadth_first_graph_search, astar_search, best_first_graph_search
 
-p = KnightProblem([0, 0], [7,7])
+import chess
 
-s = astar_search(p)
 
-print("A*")
+board = chess.Board("2pp4/4p2p/p3p3/3p1p2/4K2p/pp1p1pp1/7p/1p4p1  w - - 0 1")
+foo = chess.B2
+
+f = board.fen()
+board.king(w)
+
+p = KingMaze(board, foo)
+
+
+print("breadth first search")
+s = breadth_first_graph_search(p)
 p.display_solution(s)
 
+# p = KingMaze()
 
 
 
