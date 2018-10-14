@@ -19,12 +19,12 @@ def play_game(game, *players):
     3
     """
     state = game.initial
-    game.display(state)
+    #game.display(state)
     i = 1
     while True and (i < 2):
         # print ("iteration ", i, " game : ", game.board)
         i += 1
-        #         print(i)
+        print(i)
         # print ("nouveau coup")
         for player in players:
             move = player.best_move(game, state)
@@ -33,9 +33,9 @@ def play_game(game, *players):
             game.set_state(state)
             # print ("disolay")
             # game.display_move(state, move)
-            game.display(state)
+            #game.display(state)
             # Wait for 5 seconds
-            time.sleep(1)
+            #time.sleep(1)
             if game.terminal_test(state):
                 # game.display(state)
                 # print(state.result())
