@@ -13,15 +13,15 @@ from IPython.display import clear_output
 # from Games.Players import RandomPlayer #, QueryPlayer
 
 
-def play_game(game, *players):
+def play_game(game,coup, *players):
     """Play an n-person, move-alternating game.
     >>> play_game(Fig52Game(), alphabeta_player, alphabeta_player)
     3
     """
     state = game.initial
-    #game.display(state)
+    game.display(state)
     i = 1
-    while True and (i < 2):
+    while True and (i < coup):
         # print ("iteration ", i, " game : ", game.board)
         i += 1
         print(i)
@@ -33,9 +33,9 @@ def play_game(game, *players):
             game.set_state(state)
             # print ("disolay")
             # game.display_move(state, move)
-            #game.display(state)
+            game.display(state)
             # Wait for 5 seconds
-            #time.sleep(1)
+            time.sleep(1)
             if game.terminal_test(state):
                 # game.display(state)
                 # print(state.result())

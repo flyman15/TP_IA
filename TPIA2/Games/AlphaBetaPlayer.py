@@ -74,3 +74,61 @@ class MiniMaxplayer(Player):
             foo.append([a, MinValue(game.result(state, a), dep)])
         c = max(foo, key = lambda x: x[1])
         return c[0]
+
+    
+class AlphaBetaPlayer(Player):
+    def __init__(self,  eval_fn, depth = 3):
+        self.depth = depth
+        self.feval = eval_fn
+        self.numExplore = 0
+        
+    def best_move(self, game, state):
+        def MaxValue(state, alpha, beta, depth):
+            if game.terminal_test(state) or depth is 0:
+                return self.feval(game, state, 1)
+            v = -inf
+            for a in game.actions(state):
+                self.numExplore += 1
+                v = max(v, MinValue(game.result(state, a), alpha, beta, depth - 1))
+                if v >= beta:
+                    return v
+                alpha = max(alpha, v)
+            return v
+        
+        def MinValue(state, alpha, beta, depth):
+            if game.terminal_test(state) or depth is 0:
+                return self.feval(game, state, 1)
+            v = inf
+            for a in game.actions(state):
+                self.numExplore += 1
+                v = min(v, MaxValue(game.result(state,a), alpha, beta, depth - 1))
+                if v <= alpha:
+                    return v
+                beta = min(beta, v)
+            return v
+            
+        foo = []
+        dep = self.depth - 1
+        for a in game.actions(state):
+            self.numExplore += 1
+            foo.append([a, MinValue(game.result(state,a),-inf, inf, dep)])
+        c = max(foo, key = lambda x: x[1])
+        return c[0]
+            
+            
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
