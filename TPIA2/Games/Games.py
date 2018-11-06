@@ -31,7 +31,6 @@ def play_game(game,coup, *players):
             # print (move)
             state = game.result(state, move)
             game.set_state(state)
-            # print ("disolay")
             # game.display_move(state, move)
             game.display(state)
             # Wait for 5 seconds
