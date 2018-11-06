@@ -39,7 +39,7 @@ def play_game(game,coup, *players):
                 # game.display(state)
                 # print(state.result())
                 print ("fin de partie")
-                # print(i)
+                print(i)
                 return [state.result(), game.utility(state, game.to_move(game.initial))]
 
 

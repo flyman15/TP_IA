@@ -30,3 +30,28 @@ def feval1(game, state, depth):
     # print ('legal_moves ', state.legal_moves, '=> type : ', type(state.legal_moves))
     u = u + 0.1 * len([e for e in state.legal_moves])
     return (u)
+
+
+
+"More aggressive"
+"Mixed stratrgy: consider the rest of both sides and possible future choices"
+def feval2(game, state, depth):
+    "Return the value of this final state to player."
+    u = 0
+    for type_p in [chess.PAWN, chess.KNIGHT, chess.BISHOP, chess.ROOK, chess.QUEEN]:
+        u -= len(state.pieces(type_p, chess.BLACK)) * game.Tab_Val_Pieces[type_p]
+        u += 0.5*len(state.pieces(type_p, chess.WHITE)) * game.Tab_Val_Pieces[type_p]   
+    u = u + 0.1 * len([e for e in state.legal_moves])
+    return (u)
+
+
+"More conservative"
+"Mixed stratrgy: consider the rest of both sides and possible future choices"
+def feval3(game, state, depth):
+    "Return the value of this final state to player."
+    u = 0
+    for type_p in [chess.PAWN, chess.KNIGHT, chess.BISHOP, chess.ROOK, chess.QUEEN]:
+        u -= 0.5*len(state.pieces(type_p, chess.BLACK)) * game.Tab_Val_Pieces[type_p]
+        u += len(state.pieces(type_p, chess.WHITE)) * game.Tab_Val_Pieces[type_p]   
+    u = u + 0.1 * len([e for e in state.legal_moves])
+    return (u)
