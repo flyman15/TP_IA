@@ -33,9 +33,9 @@ def play_game(game,coup, *players):
             state = game.result(state, move)
             game.set_state(state)
             # game.display_move(state, move)
-            # game.display(state)
+            #game.display(state)
             # Wait for 5 seconds
-            #time.sleep(1)
+            #time.sleep(3)
             if game.terminal_test(state):
                 # game.display(state)
                 # print(state.result())
