@@ -7,7 +7,8 @@ import random
 from IPython.core.display import SVG
 from IPython.core.display import display
 from IPython.display import clear_output
-
+NORTH = 1
+SOUTH = 0
 
 # from Games.AlphaBetaPlayer import ABplayer
 # from Games.Players import RandomPlayer #, QueryPlayer
@@ -19,12 +20,12 @@ def play_game(game,coup, *players):
     3
     """
     state = game.initial
-    game.display(state)
+    #game.display(state)
     i = 1
     while True and (i < coup):
         # print ("iteration ", i, " game : ", game.board)
         i += 1
-        print(i)
+        #print(i)
         # print ("nouveau coup")
         for player in players:
             move = player.best_move(game, state)
@@ -32,15 +33,15 @@ def play_game(game,coup, *players):
             state = game.result(state, move)
             game.set_state(state)
             # game.display_move(state, move)
-            game.display(state)
+            # game.display(state)
             # Wait for 5 seconds
-            time.sleep(1)
+            #time.sleep(1)
             if game.terminal_test(state):
                 # game.display(state)
                 # print(state.result())
                 print ("fin de partie")
                 print(i)
-                return [state.result(), game.utility(state, game.to_move(game.initial))]
+                return [state.result()]#, game.utility(state, game.to_move(game.initial))]
 
 
 # ______________________________________________________________________________
